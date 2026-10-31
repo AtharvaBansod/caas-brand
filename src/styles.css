@@ -10,7 +10,8 @@
 
 :root { color-scheme: light; --iris: #5b5bf0; --nav-h: 0px; }
 /* Sticky bars sit just under the floating nav: when the nav slides in on scroll-up they glide down with it instead of hiding behind it. */
-.stick-nav { position: sticky; top: calc(var(--nav-h) + 10px); z-index: 30; transition: top .5s cubic-bezier(.22,1,.36,1); }
+.stick-nav { position: sticky; top: calc(var(--nav-h) + 10px); z-index: 30; transition: top .5s cubic-bezier(.22,1,.36,1), opacity .35s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+.stick-nav.released { opacity: 0; transform: translateY(-24px); pointer-events: none; }
 html { scroll-behavior: auto; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
