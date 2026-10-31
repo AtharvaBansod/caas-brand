@@ -4,7 +4,7 @@ import { gsap } from '../lib/smooth';
 import { Browser } from '../components/Devices';
 import { Reveal, SplitText } from '../components/Reveal';
 import { admin } from '../assets';
-import { useStickRelease } from '../lib/useStickRelease';
+import { StickyTabs } from '../components/StickyTabs';
 
 
 const views = [
@@ -31,7 +31,6 @@ function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
 
 export function Console() {
   const section = React.useRef<HTMLElement>(null);
-  const released = useStickRelease(section);
   const [i, setI] = React.useState(0);
   const v = views[i];
   return (
@@ -48,11 +47,11 @@ export function Console() {
           <Reveal delay={0.1}><p className="mt-4 text-[16px] text-white/60">No infrastructure to babysit. Configure features, brand and people — then watch it grow.</p></Reveal>
         </div>
 
-        <div className={`stick-nav ${released ? 'released' : ''} mt-12 flex flex-wrap justify-center gap-2 rounded-2xl bg-night/70 py-2 backdrop-blur-md`}>
+        <StickyTabs section={section} className="mt-12 flex flex-wrap justify-center gap-2">
           {views.map((x, k) => (
             <button key={x.id} onClick={() => setI(k)} className={`rounded-full border px-4 py-2 text-[13px] font-medium transition-all ${k === i ? 'border-iris bg-iris/20 text-white shadow-[0_0_30px_-5px_rgba(91,91,240,.7)]' : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'}`}>{x.label}</button>
           ))}
-        </div>
+        </StickyTabs>
 
         <div className="mx-auto mt-10 max-w-[1000px] [perspective:1800px]">
           <div>

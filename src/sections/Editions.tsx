@@ -4,7 +4,7 @@ import { Laptop, Phone } from '../components/Devices';
 import { Shot } from '../components/Media';
 import { Reveal, SplitText } from '../components/Reveal';
 import { phone, faces } from '../assets';
-import { useStickRelease } from '../lib/useStickRelease';
+import { StickyTabs } from '../components/StickyTabs';
 
 type Edition = {
   id: string; label: string; kicker: string; title: string; blurb: string; accent: string;
@@ -67,7 +67,6 @@ const editions: Edition[] = [
 
 export function Editions() {
   const section = React.useRef<HTMLElement>(null);
-  const released = useStickRelease(section);
   const [tab, setTab] = React.useState<string>('general');
   const cur = editions.find((e) => e.id === tab)!;
   return (
@@ -79,7 +78,7 @@ export function Editions() {
           <SplitText as="h2" className="h-display mt-5 text-[clamp(2rem,4.2vw,3.5rem)]" text="Pick the experience. Switch anytime." />
         </div>
 
-        <div className={`stick-nav ${released ? 'released' : ''} mt-10 flex justify-center`}>
+        <StickyTabs section={section} className="mt-10 flex justify-center">
           <div role="tablist" aria-label="Edition" className="relative inline-flex rounded-full border border-ink/10 bg-white p-1.5 shadow-soft">
             {editions.map((e) => (
               <button key={e.id} role="tab" aria-selected={tab === e.id} onClick={() => setTab(e.id)} className={`relative z-10 rounded-full px-6 py-2.5 text-[14px] font-medium transition-colors ${tab === e.id ? 'text-white' : 'text-ink-2 hover:text-ink'}`}>
@@ -88,7 +87,7 @@ export function Editions() {
               </button>
             ))}
           </div>
-        </div>
+        </StickyTabs>
 
         <AnimatePresence mode="wait">
           <motion.div key={cur.id} initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className="mt-14 grid items-center gap-12 lg:grid-cols-[0.9fr_1.25fr]">
