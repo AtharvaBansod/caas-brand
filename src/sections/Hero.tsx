@@ -23,8 +23,7 @@ export function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.15 });
       tl.from('[data-hero-fade]', { y: 26, opacity: 0, duration: 1.1, stagger: 0.12 }, 0.5)
-        .from('[data-bubble]', { y: 40, scale: 0.8, opacity: 0, duration: 1.1, stagger: 0.28, ease: 'back.out(1.5)' }, 1.3)
-        .from('[data-hero-scroll]', { opacity: 0, y: -10, duration: 1 }, 2.4);
+        .from('[data-bubble]', { y: 40, scale: 0.8, opacity: 0, duration: 1.1, stagger: 0.28, ease: 'back.out(1.5)' }, 1.3);
       // gentle idle float + scroll parallax for the bubbles
       gsap.utils.toArray<HTMLElement>('[data-bubble]').forEach((b, i) => {
         gsap.to(b, { y: i % 2 ? 12 : -12, duration: 3.2 + i * 0.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 2 });
@@ -91,10 +90,6 @@ export function Hero() {
         </div>
       </div>
 
-      <div data-hero-scroll className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[.2em] text-ink-4 md:flex">
-        Scroll
-        <span className="relative block h-9 w-px overflow-hidden bg-ink/10"><i className="absolute left-0 top-0 h-3 w-px animate-[scrollDot_2.2s_ease-in-out_infinite] bg-iris" /></span>
-      </div>
     </section>
   );
 }

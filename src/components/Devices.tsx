@@ -9,14 +9,19 @@ function Screen({ media, top }: { media: Media; top?: boolean }) {
   return media.video ? <Clip {...media.video} className={fit} /> : <Shot src={media.image || ''} className={fit} />;
 }
 
-/** A notch-less phone: slim titanium frame, the captured app edge to edge. */
+/** A phone with a real status bar and home bar: the app sits in a plain rectangle between them, so no corner of the UI is ever clipped. */
 export const Phone = React.forwardRef<HTMLDivElement, { media?: Media; className?: string; glow?: boolean; children?: React.ReactNode }>(function Phone({ media = {}, className = '', glow, children }, ref) {
   return (
-    <div ref={ref} className={`relative aspect-[9/19.2] w-full ${className}`}>
+    <div ref={ref} className={`relative aspect-[9/20.4] w-full ${className}`}>
       {glow ? <div className="absolute -inset-10 -z-10 rounded-[80px] bg-iris/25 blur-3xl" /> : null}
-      <div className="absolute inset-0 rounded-[15%/7%] bg-gradient-to-b from-[#2b2e3f] via-[#12141f] to-[#2a2d3c] p-[2.2%] shadow-[0_30px_80px_-20px_rgba(30,30,90,.55),inset_0_0_0_1.5px_rgba(255,255,255,.14)]">
-        <div className="relative h-full w-full overflow-hidden rounded-[13%/6.2%] bg-black">
-          {children ?? <Screen media={media} top />}
+      <div className="absolute inset-0 flex flex-col overflow-hidden rounded-[14%/6.4%] bg-gradient-to-b from-[#2b2e3f] via-[#12141f] to-[#2a2d3c] p-[2.4%] shadow-[0_30px_80px_-20px_rgba(30,30,90,.55),inset_0_0_0_1.5px_rgba(255,255,255,.14)]">
+        <div className="flex h-full w-full flex-col overflow-hidden rounded-[9%/4%] bg-white">
+          <div className="flex h-[3.6%] min-h-[10px] shrink-0 items-center justify-between bg-white px-[7%] text-[clamp(6px,1.9cqw,10px)] font-semibold text-ink [container-type:inline-size]">
+            <span>9:41</span>
+            <span className="flex items-center gap-1"><i className="inline-block h-[5px] w-[9px] rounded-[1.5px] bg-ink/80" /><i className="inline-block h-[5px] w-[5px] rounded-full bg-ink/80" /><i className="inline-block h-[6px] w-[11px] rounded-[2px] border border-ink/80" /></span>
+          </div>
+          <div className="relative min-h-0 flex-1 overflow-hidden bg-black">{children ?? <Screen media={media} top />}</div>
+          <div className="grid h-[2.4%] min-h-[6px] shrink-0 place-items-center bg-white"><i className="block h-[3px] w-[34%] rounded-full bg-ink/70" /></div>
         </div>
       </div>
       <i className="absolute -left-[1.2%] top-[18%] h-[5%] w-[1.2%] rounded-l bg-[#1b1d2a]" />
