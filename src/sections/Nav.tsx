@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gsap, scrollToId } from '../lib/smooth';
 
 const LINKS = [
-  { id: 'product', label: 'Product' },
+  { id: 'action', label: 'Product' },
   { id: 'integrate', label: 'Integrate' },
   { id: 'platform', label: 'Platform' },
   { id: 'console', label: 'Console' },

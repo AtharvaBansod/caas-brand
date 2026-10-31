@@ -29,12 +29,6 @@ function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
 export function Console() {
   const [i, setI] = React.useState(0);
   const v = views[i];
-  const stage = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    const el = stage.current; if (!el) return undefined;
-    const t = gsap.fromTo(el, { rotateX: 14, y: 50, scale: 0.92 }, { rotateX: 0, y: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 35%', scrub: true } });
-    return () => { t.scrollTrigger?.kill(); t.kill(); };
-  }, []);
   return (
     <section id="console" className="relative isolate overflow-hidden bg-night py-24 text-white md:py-32">
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -56,7 +50,7 @@ export function Console() {
         </div>
 
         <div className="mx-auto mt-10 max-w-[1000px] [perspective:1800px]">
-          <div ref={stage} className="will-change-transform">
+          <div>
             <AnimatePresence mode="wait">
               <motion.div key={v.id} initial={{ opacity: 0, scale: 0.97, filter: 'blur(8px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} exit={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }} transition={{ duration: 0.45 }}>
                 <div className="relative"><Browser dark url={v.url} media={{ image: v.img }} />                </div>

@@ -3,13 +3,13 @@ import { startSmoothScroll, ScrollTrigger } from './lib/smooth';
 import { Nav } from './sections/Nav';
 import { Hero } from './sections/Hero';
 import { Marquee } from './sections/Marquee';
-import { Showcase } from './sections/Showcase';
+import { Action } from './sections/Action';
+import { Calls } from './sections/Calls';
 import { Editions } from './sections/Editions';
 import { Bento } from './sections/Bento';
 import { Console } from './sections/Console';
 import { Integrate } from './sections/Integrate';
 import { Docs } from './sections/Docs';
-import { Tour } from './sections/Tour';
 import { Security } from './sections/Security';
 import { CTA, Footer } from './sections/Finale';
 
@@ -28,8 +28,9 @@ export function App() {
         <Hero />
         <Marquee />
         <Integrate />
-        <Showcase />
+        <Action />
         <Editions />
+        <Calls />
         <Bento />
         <Console />
         <Docs />
@@ -37,7 +38,6 @@ export function App() {
         <CTA />
       </main>
       <Footer />
-      <Tour />
     </>
   );
 }

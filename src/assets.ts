@@ -50,15 +50,7 @@ export const admin = {
 };
 
 const clip = (n: string) => ({ mp4: m(`video/${n}.mp4`), webm: m(`video/${n}.webm`), poster: m(`video/${n}.jpg`) });
-export const tour = { mp4: m('video/tour.mp4'), webm: m('video/tour.webm'), poster: m('video/tour.jpg') };
 export const integrate = { desktop: clip('integrate-desktop'), phone: clip('integrate-phone') };
-export const video = {
-  hero: clip('hero-phone'),
-  chat: clip('chat-phone'),
-  general: clip('general-desktop'),
-  pro: tour,
-  admin: clip('admin-desktop'),
-};
 
 export const faces = ['maya', 'arjun', 'sofia', 'liam', 'priya', 'noah'].map((k) => m(`faces/${k}.webp`));
 export const photos = ['santorini', 'tuscany', 'jetty', 'mountains', 'cafe', 'galaxy', 'canoe', 'beach'].map((k) => m(`photos/${k}.webp`));

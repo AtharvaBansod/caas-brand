@@ -3,7 +3,7 @@ import { gsap, scrollToId } from '../lib/smooth';
 import { SplitText } from '../components/Reveal';
 import { Shot } from '../components/Media';
 import { HeroScene } from '../components/HeroScene';
-import { faces, video, phone } from '../assets';
+import { faces, phone } from '../assets';
 
 class SceneBoundary extends React.Component<{ children: React.ReactNode; fallback: React.ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -61,7 +61,7 @@ export function Hero() {
             <button className="btn btn-primary" onClick={() => scrollToId('docs')}>Start building
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </button>
-            <button className="btn btn-ghost" onClick={() => window.dispatchEvent(new Event('open-tour'))}>
+            <button className="btn btn-ghost" onClick={() => scrollToId('action')}>
               <span className="grid h-6 w-6 place-items-center rounded-full bg-iris text-white"><svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span>
               See it in action
             </button>

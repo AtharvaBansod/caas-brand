@@ -3,14 +3,15 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Laptop, Phone } from '../components/Devices';
 import { Shot } from '../components/Media';
 import { Reveal, SplitText } from '../components/Reveal';
-import { desktop, phone, video, faces } from '../assets';
+import { phone, faces } from '../assets';
 
 type Edition = {
-  id: 'general' | 'pro'; label: string; kicker: string; title: string; blurb: string; accent: string;
+  id: string; label: string; kicker: string; title: string; blurb: string; accent: string;
   points: { t: string; d: string }[];
-  laptop: { video: typeof video.general; image: string };
-  phones: string[]; floats: { img: string; label: string; cls: string }[];
+  laptop: { video: { mp4: string; webm: string; poster: string } };
+  phones: { image?: string; video?: { mp4: string; webm: string; poster: string } }[]; floats: { img: string; label: string; cls: string }[];
 };
+const cv = (id: string) => ({ mp4: `/media/clips/${id}.mp4`, webm: `/media/clips/${id}.webm`, poster: `/media/clips/${id}.jpg` });
 
 const editions: Edition[] = [
   {
@@ -22,7 +23,7 @@ const editions: Edition[] = [
       { t: 'Calls & voice spaces', d: 'Crisp 1:1 and group calls, plus drop-in audio rooms.' },
       { t: 'Profiles & privacy', d: 'Followers, private accounts, two-step verification, chat lock.' },
     ],
-    laptop: { video: video.general, image: desktop.feed }, phones: [phone.chat, phone.feed],
+    laptop: { video: cv('g-chat') }, phones: [{ image: phone.chat }, { image: phone.feed }],
     floats: [{ img: faces[1], label: 'Soundcheck at 6 🎸', cls: 'left-[-2%] top-[8%]' }, { img: faces[2], label: 'Take me with you!!', cls: 'right-[-1%] top-[40%]' }],
   },
   {
@@ -32,15 +33,39 @@ const editions: Edition[] = [
       { t: 'Workspaces', d: 'Isolated spaces per team with join codes and admins.' },
       { t: 'Planner & tasks', d: 'Kanban, lists and /task commands straight from a message.' },
       { t: 'Whiteboards & pages', d: 'Real-time boards and Notion-style pages, shared per chat.' },
-      { t: 'Org chart & communities', d: 'Reporting lines, announcements and broadcast channels.' },
+      { t: 'Topics & org chart', d: 'Focused threads inside a group and reporting lines that build themselves.' },
     ],
-    laptop: { video: video.pro, image: desktop.planner }, phones: [phone.planner, phone.whiteboard],
+    laptop: { video: cv('p-planner') }, phones: [{ image: phone.planner }, { image: phone.tracker }],
     floats: [{ img: faces[0], label: 'Design is ready ✅', cls: 'left-[-2%] top-[10%]' }, { img: faces[5], label: 'Launch is Friday 🚀', cls: 'right-[-1%] top-[44%]' }],
+  },
+  {
+    id: 'ultra', label: 'Ultra', kicker: 'For communities', accent: 'from-fuchsia-500 to-iris',
+    title: 'Build a community, not just a chat.', blurb: 'Public and private communities with their own people, posts and encrypted broadcast channels.',
+    points: [
+      { t: 'Communities', d: 'Create or join by link or code, with logos, banners and rules.' },
+      { t: 'Roles & moderation', d: 'Admins, moderators, join requests and review-before-post.' },
+      { t: 'Channels & polls', d: 'Announcements, polls and live voice — end-to-end encrypted.' },
+      { t: 'Workspaces too', d: 'Run teams and communities side by side in one product.' },
+    ],
+    laptop: { video: cv('u-communities') }, phones: [{ image: phone.launch }, { image: phone.weekly }],
+    floats: [{ img: faces[3], label: 'Joined Design Guild 🎨', cls: 'left-[-2%] top-[10%]' }, { img: faces[4], label: 'New channel post', cls: 'right-[-1%] top-[44%]' }],
+  },
+  {
+    id: 'support', label: 'Support desk', kicker: 'For customer care', accent: 'from-amber-400 to-rose-500',
+    title: 'A help desk inside your product.', blurb: 'Customers tap “Contact support”; your agents pick it up in their own portal.',
+    points: [
+      { t: 'Built-in requests', d: 'Subject, topic and priority from inside the app.' },
+      { t: 'Agent portal', d: 'Queue, my tickets, notes, canned replies and runbooks.' },
+      { t: 'Calls on demand', d: 'Agents can start a call; customers can be allowed to.' },
+      { t: 'Insights', d: 'Waiting time, active chats and CSAT at a glance.' },
+    ],
+    laptop: { video: cv('s-agent') }, phones: [{ video: cv('s-customer') }, { image: phone.chat }],
+    floats: [{ img: faces[0], label: 'Ticket #1040 sent', cls: 'left-[-2%] top-[10%]' }, { img: faces[2], label: 'Agent joined the chat', cls: 'right-[-1%] top-[44%]' }],
   },
 ];
 
 export function Editions() {
-  const [tab, setTab] = React.useState<'general' | 'pro'>('general');
+  const [tab, setTab] = React.useState<string>('general');
   const cur = editions.find((e) => e.id === tab)!;
   return (
     <section id="editions" className="relative overflow-hidden py-24 md:py-32">
@@ -83,10 +108,10 @@ export function Editions() {
                 <Laptop glow media={cur.laptop} />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 60, rotate: 6 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ delay: 0.35, type: 'spring', stiffness: 90, damping: 16 }} className="absolute -bottom-2 right-0 w-[22%] min-w-[96px] sm:right-2">
-                <Phone media={{ image: cur.phones[0] }} />
+                <Phone media={cur.phones[0]} />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 60, rotate: -6 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ delay: 0.5, type: 'spring', stiffness: 90, damping: 16 }} className="absolute -bottom-8 left-0 hidden w-[17%] sm:block">
-                <Phone media={{ image: cur.phones[1] }} />
+                <Phone media={cur.phones[1]} />
               </motion.div>
               {cur.floats.map((f, i) => (
                 <motion.div key={f.label} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.7 + i * 0.2, type: 'spring', stiffness: 200, damping: 14 }} className={`glass absolute hidden items-center gap-2 rounded-2xl px-3 py-2 shadow-lift md:flex ${f.cls}`}>
