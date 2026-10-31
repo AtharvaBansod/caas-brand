@@ -104,7 +104,7 @@ export function Editions() {
             </div>
 
             <div className="relative px-2 pb-10 sm:px-8">
-              <motion.div initial={{ clipPath: 'inset(0 100% 0 0 round 24px)' }} animate={{ clipPath: 'inset(0 0% 0 0 round 24px)' }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
                 <Laptop glow media={cur.laptop} />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 60, rotate: 6 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ delay: 0.35, type: 'spring', stiffness: 90, damping: 16 }} className="absolute -bottom-2 right-0 w-[22%] min-w-[96px] sm:right-2">

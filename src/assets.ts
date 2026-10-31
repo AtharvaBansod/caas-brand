@@ -42,6 +42,8 @@ export const admin = {
   playground: m('admin/playground.webp'),
   workspaces: m('admin/workspaces.webp'),
   branding: m('admin/branding.webp'),
+  brandemails: m('admin/brandemails.webp'),
+  brandsignin: m('admin/brandsignin.webp'),
   people: m('admin/people.webp'),
   docs: m('admin/docs.webp'),
   insights: m('admin/insights.webp'),

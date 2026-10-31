@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Reveal, SplitText } from '../components/Reveal';
 import { Shot } from '../components/Media';
+import { Phone } from '../components/Devices';
 import { desktop, phone, photos } from '../assets';
 
 function Tilt({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -16,6 +17,62 @@ function Tilt({ children, className = '' }: { children: React.ReactNode; classNa
     <div ref={ref} onPointerMove={move} onPointerLeave={leave} className={`group relative overflow-hidden rounded-3xl border border-ink/5 bg-white p-6 shadow-soft transition-transform duration-300 ease-out ${className}`}>
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: 'radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(91,91,240,.10), transparent 60%)' }} />
       {children}
+    </div>
+  );
+}
+
+function CallCard() {
+  return (
+    <div className="relative h-full min-h-[210px] overflow-hidden rounded-3xl">
+      <video className="absolute inset-0 h-full w-full object-cover" poster="/media/clips/c-video.jpg" muted loop playsInline autoPlay preload="metadata"><source src="/media/clips/c-video.webm" type="video/webm" /><source src="/media/clips/c-video.mp4" type="video/mp4" /></video>
+      <div className="absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-4 text-white"><h3 className="text-lg font-semibold">Calls</h3><p className="text-[12.5px] text-white/70">Voice &amp; video, built in.</p></div>
+    </div>
+  );
+}
+
+function NativeCard() {
+  return (
+    <div className="relative">
+      <h3 className="text-lg font-semibold">Native feel</h3><p className="mt-1 text-[14px] text-ink-3">Installable, offline-first, push-ready.</p>
+      <div className="mt-3 flex flex-wrap gap-1.5">{['Add to home screen', 'Works offline', 'Push alerts'].map((t) => <span key={t} className="rounded-full bg-iris/10 px-2.5 py-1 text-[11px] font-medium text-iris-700">{t}</span>)}</div>
+      <div className="relative mx-auto mt-5 h-[210px] w-[170px] overflow-hidden"><div className="absolute left-0 top-0 w-full transition-transform duration-500 group-hover:-translate-y-2"><Phone media={{ image: phone.chatlist }} /></div>
+        <div className="absolute -right-1 top-5 rounded-xl bg-white px-2.5 py-1.5 text-[10.5px] font-medium shadow-lift ring-1 ring-ink/5"><b className="text-iris">New message</b><br />Sofia: landed! ✈️</div></div>
+    </div>
+  );
+}
+
+function ThemeCard() {
+  const colors = ['#5b5bf0', '#f472b6', '#22d3ee', '#34d399', '#f59e0b'];
+  const [c, setC] = React.useState(colors[0]); const [dark, setDark] = React.useState(false);
+  return (
+    <div>
+      <h3 className="text-lg font-semibold">Themeable</h3><p className="mt-1 text-[14px] text-ink-3">Pick a colour. Flip light &amp; dark. Try it.</p>
+      <div className={`mt-4 rounded-2xl p-3 transition-colors duration-500 ${dark ? 'bg-night-2' : 'bg-paper-2'}`}>
+        <div className={`max-w-[75%] rounded-2xl px-3 py-1.5 text-[12px] ${dark ? 'bg-white/10 text-white' : 'bg-white text-ink'}`}>Your brand, your colour 🎨</div>
+        <div className="ml-auto mt-2 w-fit max-w-[75%] rounded-2xl px-3 py-1.5 text-[12px] text-white transition-colors duration-300" style={{ background: c }}>Love it — ship it!</div>
+      </div>
+      <div className="mt-3 flex items-center gap-2">{colors.map((x) => <button key={x} onClick={() => setC(x)} aria-label={x} className={`h-7 flex-1 rounded-lg transition-transform ${c === x ? 'scale-110 ring-2 ring-ink/40 ring-offset-2' : 'hover:-translate-y-0.5'}`} style={{ background: x }} />)}
+        <button onClick={() => setDark(!dark)} aria-label="Toggle dark mode" className={`ml-1 grid h-7 w-12 items-center rounded-full px-1 transition-colors ${dark ? 'bg-iris' : 'bg-ink/15'}`}><i className={`block h-5 w-5 rounded-full bg-white shadow transition-transform ${dark ? 'translate-x-5' : ''}`} /></button></div>
+    </div>
+  );
+}
+
+const EVENTS = ['message.created', 'task.completed', 'call.ended', 'story.viewed', 'member.joined', 'ticket.created'];
+function ApiCard() {
+  const [n, setN] = React.useState(3);
+  React.useEffect(() => { const t = window.setInterval(() => setN((x) => x + 1), 1400); return () => window.clearInterval(t); }, []);
+  const rows = Array.from({ length: 4 }, (_, i) => n - 3 + i);
+  return (
+    <div>
+      <h3 className="text-lg font-semibold">Webhooks &amp; API</h3><p className="mt-1 text-[14px] text-ink-3">Signed events, queued and retried.</p>
+      <div className="mt-4 overflow-hidden rounded-xl bg-night p-3 font-mono text-[11px] leading-[1.7]">
+        <div className="text-white/40">POST /hooks/caas · X-Signature: sha256=…</div>
+        {rows.map((k) => (
+          <div key={k} className="flex items-center justify-between text-aqua/90 animate-[fadeIn_.5s_ease]"><span>{'{ "type": "'}{EVENTS[k % EVENTS.length]}{'" }'}</span><i className="rounded bg-mint/20 px-1.5 text-[10px] not-italic text-mint">200</i></div>
+        ))}
+      </div>
+      <pre className="mt-2 rounded-xl bg-paper-2 p-2.5 font-mono text-[10.5px] text-ink-2">GET /api/v1/conversations</pre>
     </div>
   );
 }
@@ -44,19 +101,13 @@ export function Bento() {
             <h3 className="text-lg font-semibold">Stories, posts &amp; reels</h3><p className="mt-1 text-[14px] text-ink-3">A full social layer with a built-in studio.</p>
             <div className="mt-4 flex gap-3">{photos.slice(0, 4).map((p, i) => <Shot key={p} src={p} className="h-28 w-20 flex-1 rounded-2xl object-cover transition-transform duration-500 group-hover:-translate-y-1" style={{ transitionDelay: `${i * 40}ms` }} />)}</div>
           </Tilt>
-          <Tilt className="md:col-span-2"><h3 className="text-lg font-semibold">Planner</h3><p className="mt-1 text-[14px] text-ink-3">Tasks born from chat.</p><Shot src={desktop.planner} className="mt-4 h-36 w-full rounded-xl border border-ink/5 object-cover object-left-top" /></Tilt>
-          <Tilt className="md:col-span-1">
-            <h3 className="text-lg font-semibold">Calls</h3><p className="mt-1 text-[14px] text-ink-3">Voice &amp; video.</p>
-            <div className="relative mx-auto mt-5 grid h-20 w-20 place-items-center">
-              {[0, 1].map((i) => <i key={i} className="absolute inset-0 rounded-full border border-iris/40 animate-pulseRing" style={{ animationDelay: `${i * 1.2}s` }} />)}
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-iris to-violet text-white"><svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z" /></svg></span>
-            </div>
-          </Tilt>
-          <Tilt className="md:col-span-3"><h3 className="text-lg font-semibold">Whiteboards</h3><p className="mt-1 text-[14px] text-ink-3">Sketch together, live.</p><Shot src={desktop.whiteboard} className="mt-4 h-40 w-full rounded-xl border border-ink/5 object-cover object-top" /></Tilt>
-          <Tilt className="md:col-span-3"><h3 className="text-lg font-semibold">Org chart &amp; communities</h3><p className="mt-1 text-[14px] text-ink-3">Reporting lines, broadcasts and member roles.</p><Shot src={desktop.org} className="mt-4 h-40 w-full rounded-xl border border-ink/5 object-cover object-top" /></Tilt>
-          <Tilt className="md:col-span-2"><h3 className="text-lg font-semibold">Native feel</h3><p className="mt-1 text-[14px] text-ink-3">Installable, offline-first, push-ready.</p><Shot src={phone.chatlist} className="mx-auto mt-4 h-40 w-auto rounded-xl object-cover object-top" /></Tilt>
-          <Tilt className="md:col-span-2"><h3 className="text-lg font-semibold">Themeable</h3><p className="mt-1 text-[14px] text-ink-3">Your brand, light &amp; dark.</p><div className="mt-5 flex gap-2">{['#5b5bf0', '#f472b6', '#22d3ee', '#34d399', '#f59e0b'].map((c) => <i key={c} className="h-10 flex-1 rounded-xl transition-transform duration-300 hover:-translate-y-1" style={{ background: c }} />)}</div></Tilt>
-          <Tilt className="md:col-span-2"><h3 className="text-lg font-semibold">Webhooks &amp; API</h3><p className="mt-1 text-[14px] text-ink-3">Signed events, queued and retried.</p><pre className="mt-4 rounded-xl bg-night p-3 font-mono text-[11px] leading-5 text-aqua/90">{'POST /hooks/caas\n{ "type": "message.created" }'}</pre></Tilt>
+          <Tilt className="md:col-span-2"><h3 className="text-lg font-semibold">Planner</h3><p className="mt-1 text-[14px] text-ink-3">Tasks born from chat.</p><Shot src={desktop.planner} className="mt-4 aspect-[16/10] w-full rounded-xl border border-ink/5 object-cover" /></Tilt>
+          <Tilt className="md:col-span-1 !p-0"><CallCard /></Tilt>
+          <Tilt className="md:col-span-3"><h3 className="text-lg font-semibold">Whiteboards</h3><p className="mt-1 text-[14px] text-ink-3">Sketch together, live.</p><Shot src={desktop.whiteboard} className="mt-4 aspect-[16/10] w-full rounded-xl border border-ink/5 object-cover" /></Tilt>
+          <Tilt className="md:col-span-3"><h3 className="text-lg font-semibold">Org chart &amp; communities</h3><p className="mt-1 text-[14px] text-ink-3">Reporting lines, broadcasts and member roles.</p><Shot src={desktop.org} className="mt-4 aspect-[16/10] w-full rounded-xl border border-ink/5 object-cover" /></Tilt>
+          <Tilt className="md:col-span-2 !pb-0"><NativeCard /></Tilt>
+          <Tilt className="md:col-span-2"><ThemeCard /></Tilt>
+          <Tilt className="md:col-span-2"><ApiCard /></Tilt>
         </Reveal>
       </div>
     </section>

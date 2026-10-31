@@ -10,7 +10,9 @@ const views = [
   { id: 'dashboard', label: 'Overview', d: 'Live activity, API usage and health at a glance.', img: admin.dashboard, url: 'admin.yourapp.com/dashboard' },
   { id: 'playground', label: 'SDK Playground', d: 'Toggle features, preview the SDK on any device, copy the install.', img: admin.playground, url: 'admin.yourapp.com/sdk-preview' },
   { id: 'workspaces', label: 'Workspaces', d: 'Standard, Pro or Ultra — with admins, join codes and communities.', img: admin.workspaces, url: 'admin.yourapp.com/workspaces' },
-  { id: 'branding', label: 'Branding', d: 'Your logo and colour on every email, code and shared page.', img: admin.branding, url: 'admin.yourapp.com/branding' },
+  { id: 'branding', label: 'Branding', d: 'Your name, colour, logo and contacts — applied to every email, code screen and shared page.', img: admin.branding, url: 'admin.yourapp.com/branding' },
+  { id: 'emails', label: 'Branded emails', d: 'Sign-in codes and alerts carry your logo and tone, with live previews and a send-test.', img: admin.brandemails, url: 'admin.yourapp.com/branding/emails' },
+  { id: 'signin', label: 'Sign-in screen', d: 'Pick a design for the verification screen and watch the preview update.', img: admin.brandsignin, url: 'admin.yourapp.com/branding/sign-in' },
   { id: 'docs', label: 'Docs', d: 'Integration guides and copy-paste snippets for every framework and language.', img: admin.docs, url: 'admin.yourapp.com/docs' },
   { id: 'people', label: 'People', d: 'Everyone using your product, searchable and manageable.', img: admin.people, url: 'admin.yourapp.com/people' },
 ];

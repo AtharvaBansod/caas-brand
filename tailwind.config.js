@@ -28,6 +28,7 @@ export default {
         float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
         pulseRing: { '0%': { transform: 'scale(.9)', opacity: '.7' }, '100%': { transform: 'scale(1.6)', opacity: '0' } },
         marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        fadeIn: { from: { opacity: '0', transform: 'translateY(6px)' }, to: { opacity: '1', transform: 'none' } },
         push: { from: { transform: 'scale(1)' }, to: { transform: 'scale(1.07)' } },
         shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
       },
