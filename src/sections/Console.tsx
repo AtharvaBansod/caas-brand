@@ -49,7 +49,7 @@ export function Console() {
 
         <StickyTabs section={section} className="mt-12 flex flex-wrap justify-center gap-2">
           {views.map((x, k) => (
-            <button key={x.id} onClick={() => setI(k)} className={`rounded-full border px-4 py-2 text-[13px] font-medium transition-all ${k === i ? 'border-iris bg-iris/20 text-white shadow-[0_0_30px_-5px_rgba(91,91,240,.7)]' : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'}`}>{x.label}</button>
+            <button key={x.id} onClick={() => setI(k)} className={`rounded-full border px-4 py-2 text-[13px] font-medium transition-all ${k === i ? 'border-iris bg-iris text-white shadow-[0_8px_26px_-6px_rgba(91,91,240,.8)]' : 'border-white/15 bg-night-2/95 text-white/75 shadow-[0_6px_18px_-8px_rgba(0,0,0,.6)] backdrop-blur-md hover:border-white/35 hover:text-white'}`}>{x.label}</button>
           ))}
         </StickyTabs>
 
