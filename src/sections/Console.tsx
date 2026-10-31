@@ -32,7 +32,7 @@ export function Console() {
   const [i, setI] = React.useState(0);
   const v = views[i];
   return (
-    <section id="console" className="relative isolate overflow-hidden bg-night py-24 text-white md:py-32">
+    <section id="console" className="relative isolate overflow-clip bg-night py-24 text-white md:py-32">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-[-10%] top-[10%] h-[500px] w-[500px] rounded-full bg-iris/25 blur-[140px]" />
         <div className="absolute bottom-[-10%] right-[-5%] h-[460px] w-[460px] rounded-full bg-aqua/15 blur-[140px]" />
@@ -45,7 +45,7 @@ export function Console() {
           <Reveal delay={0.1}><p className="mt-4 text-[16px] text-white/60">No infrastructure to babysit. Configure features, brand and people — then watch it grow.</p></Reveal>
         </div>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-2">
+        <div className="stick-nav mt-12 flex flex-wrap justify-center gap-2 rounded-2xl bg-night/70 py-2 backdrop-blur-md">
           {views.map((x, k) => (
             <button key={x.id} onClick={() => setI(k)} className={`rounded-full border px-4 py-2 text-[13px] font-medium transition-all ${k === i ? 'border-iris bg-iris/20 text-white shadow-[0_0_30px_-5px_rgba(91,91,240,.7)]' : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'}`}>{x.label}</button>
           ))}

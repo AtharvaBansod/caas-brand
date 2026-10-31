@@ -35,7 +35,9 @@ export function Nav() {
       const y = window.scrollY;
       setScrolled(y > 30);
       const el = bar.current;
-      if (el) gsap.to(el, { yPercent: y > last && y > 400 ? -120 : 0, duration: 0.5, ease: 'power3.out', overwrite: true });
+      const hide = y > last && y > 400;
+      document.documentElement.style.setProperty('--nav-h', hide || y < 40 ? '0px' : '88px');
+      if (el) gsap.to(el, { yPercent: hide ? -120 : 0, duration: 0.5, ease: 'power3.out', overwrite: true });
       last = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });

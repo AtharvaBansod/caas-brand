@@ -17,8 +17,8 @@ export const Phone = React.forwardRef<HTMLDivElement, { media?: Media; className
       <div className="absolute inset-0 flex flex-col overflow-hidden rounded-[14%/6.4%] bg-gradient-to-b from-[#2b2e3f] via-[#12141f] to-[#2a2d3c] p-[2.4%] shadow-[0_30px_80px_-20px_rgba(30,30,90,.55),inset_0_0_0_1.5px_rgba(255,255,255,.14)]">
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[9%/4%] bg-white">
           <div className="flex h-[3.6%] min-h-[10px] shrink-0 items-center justify-between bg-white px-[7%] text-[clamp(6px,1.9cqw,10px)] font-semibold text-ink [container-type:inline-size]">
-            <span>9:41</span>
-            <span className="flex items-center gap-1"><i className="inline-block h-[5px] w-[9px] rounded-[1.5px] bg-ink/80" /><i className="inline-block h-[5px] w-[5px] rounded-full bg-ink/80" /><i className="inline-block h-[6px] w-[11px] rounded-[2px] border border-ink/80" /></span>
+            <span>10:10</span>
+            <span className="flex items-center gap-1"><i className="inline-block h-[5px] w-[9px] rounded-[1.5px] bg-ink/80" /><i className="inline-block h-[5px] w-[5px] rounded-full bg-ink/80" /><span className="relative inline-grid h-[8px] w-[17px] place-items-center rounded-[3px] bg-emerald-500 text-[5.5px] font-bold leading-none text-white">99</span></span>
           </div>
           <div className="relative min-h-0 flex-1 overflow-hidden bg-black">{children ?? <Screen media={media} top />}</div>
           <div className="grid h-[2.4%] min-h-[6px] shrink-0 place-items-center bg-white"><i className="block h-[3px] w-[34%] rounded-full bg-ink/70" /></div>
